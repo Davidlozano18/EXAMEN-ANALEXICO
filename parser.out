@@ -1,0 +1,797 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ARRAY
+    COLON
+    COMMA
+    DEF
+    ELSE
+    FOR
+    IF
+    OBJECT
+    PRINT
+    PRINTLN
+    UNIT
+    WHILE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> programa_1
+Rule 2     programa_1 -> USING SYSTEM SEMICOLON object_declaration
+Rule 3     object_declaration -> NAMESPACE ID LBRACE main_declaration RBRACE
+Rule 4     main_declaration -> CLASS ID LBRACE args RBRACE
+Rule 5     args -> STATIC VOID MAIN LPAREN STRING_TYPE LEFT_BRACKET RIGHT_BRACKET ARGS RPAREN LBRACE statements RBRACE
+Rule 6     statements -> statement
+Rule 7     statements -> statements statement
+Rule 8     statement -> expression SEMICOLON
+Rule 9     statement -> println_statement
+Rule 10    statement -> assignment
+Rule 11    println_statement -> SYSTEM DOT CONSOLE DOT WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON
+Rule 12    expression -> term
+Rule 13    expression -> expression PLUS term
+Rule 14    expression -> expression MINUS term
+Rule 15    factor -> NUMBER
+Rule 16    factor -> ID
+Rule 17    factor -> LPAREN expression RPAREN
+Rule 18    term -> factor
+Rule 19    term -> term TIMES factor
+Rule 20    term -> term DIVIDE factor
+Rule 21    assignment -> ID EQUALS expression
+
+Terminals, with rules where they appear
+
+ARGS                 : 5
+ARRAY                : 
+CLASS                : 4
+COLON                : 
+COMMA                : 
+CONSOLE              : 11
+DEF                  : 
+DIVIDE               : 20
+DOT                  : 11 11
+ELSE                 : 
+EQUALS               : 21
+FOR                  : 
+ID                   : 3 4 16 21
+IF                   : 
+LBRACE               : 3 4 5
+LEFT_BRACKET         : 5
+LPAREN               : 5 11 17
+MAIN                 : 5
+MINUS                : 14
+NAMESPACE            : 3
+NUMBER               : 15
+OBJECT               : 
+PLUS                 : 13
+PRINT                : 
+PRINTLN              : 
+RBRACE               : 3 4 5
+RIGHT_BRACKET        : 5
+RPAREN               : 5 11 17
+SEMICOLON            : 2 8 11
+STATIC               : 5
+STRING_LITERAL       : 11
+STRING_TYPE          : 5
+SYSTEM               : 2 11
+TIMES                : 19
+UNIT                 : 
+USING                : 2
+VOID                 : 5
+WHILE                : 
+WRITELINE            : 11
+error                : 
+
+Nonterminals, with rules where they appear
+
+args                 : 4
+assignment           : 10
+expression           : 8 13 14 17 21
+factor               : 18 19 20
+main_declaration     : 3
+object_declaration   : 2
+println_statement    : 9
+program              : 0
+programa_1           : 1
+statement            : 6 7
+statements           : 5 7
+term                 : 12 13 14 19 20
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . programa_1
+    (2) programa_1 -> . USING SYSTEM SEMICOLON object_declaration
+
+    USING           shift and go to state 3
+
+    program                        shift and go to state 1
+    programa_1                     shift and go to state 2
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> programa_1 .
+
+    $end            reduce using rule 1 (program -> programa_1 .)
+
+
+state 3
+
+    (2) programa_1 -> USING . SYSTEM SEMICOLON object_declaration
+
+    SYSTEM          shift and go to state 4
+
+
+state 4
+
+    (2) programa_1 -> USING SYSTEM . SEMICOLON object_declaration
+
+    SEMICOLON       shift and go to state 5
+
+
+state 5
+
+    (2) programa_1 -> USING SYSTEM SEMICOLON . object_declaration
+    (3) object_declaration -> . NAMESPACE ID LBRACE main_declaration RBRACE
+
+    NAMESPACE       shift and go to state 7
+
+    object_declaration             shift and go to state 6
+
+state 6
+
+    (2) programa_1 -> USING SYSTEM SEMICOLON object_declaration .
+
+    $end            reduce using rule 2 (programa_1 -> USING SYSTEM SEMICOLON object_declaration .)
+
+
+state 7
+
+    (3) object_declaration -> NAMESPACE . ID LBRACE main_declaration RBRACE
+
+    ID              shift and go to state 8
+
+
+state 8
+
+    (3) object_declaration -> NAMESPACE ID . LBRACE main_declaration RBRACE
+
+    LBRACE          shift and go to state 9
+
+
+state 9
+
+    (3) object_declaration -> NAMESPACE ID LBRACE . main_declaration RBRACE
+    (4) main_declaration -> . CLASS ID LBRACE args RBRACE
+
+    CLASS           shift and go to state 11
+
+    main_declaration               shift and go to state 10
+
+state 10
+
+    (3) object_declaration -> NAMESPACE ID LBRACE main_declaration . RBRACE
+
+    RBRACE          shift and go to state 12
+
+
+state 11
+
+    (4) main_declaration -> CLASS . ID LBRACE args RBRACE
+
+    ID              shift and go to state 13
+
+
+state 12
+
+    (3) object_declaration -> NAMESPACE ID LBRACE main_declaration RBRACE .
+
+    $end            reduce using rule 3 (object_declaration -> NAMESPACE ID LBRACE main_declaration RBRACE .)
+
+
+state 13
+
+    (4) main_declaration -> CLASS ID . LBRACE args RBRACE
+
+    LBRACE          shift and go to state 14
+
+
+state 14
+
+    (4) main_declaration -> CLASS ID LBRACE . args RBRACE
+    (5) args -> . STATIC VOID MAIN LPAREN STRING_TYPE LEFT_BRACKET RIGHT_BRACKET ARGS RPAREN LBRACE statements RBRACE
+
+    STATIC          shift and go to state 16
+
+    args                           shift and go to state 15
+
+state 15
+
+    (4) main_declaration -> CLASS ID LBRACE args . RBRACE
+
+    RBRACE          shift and go to state 17
+
+
+state 16
+
+    (5) args -> STATIC . VOID MAIN LPAREN STRING_TYPE LEFT_BRACKET RIGHT_BRACKET ARGS RPAREN LBRACE statements RBRACE
+
+    VOID            shift and go to state 18
+
+
+state 17
+
+    (4) main_declaration -> CLASS ID LBRACE args RBRACE .
+
+    RBRACE          reduce using rule 4 (main_declaration -> CLASS ID LBRACE args RBRACE .)
+
+
+state 18
+
+    (5) args -> STATIC VOID . MAIN LPAREN STRING_TYPE LEFT_BRACKET RIGHT_BRACKET ARGS RPAREN LBRACE statements RBRACE
+
+    MAIN            shift and go to state 19
+
+
+state 19
+
+    (5) args -> STATIC VOID MAIN . LPAREN STRING_TYPE LEFT_BRACKET RIGHT_BRACKET ARGS RPAREN LBRACE statements RBRACE
+
+    LPAREN          shift and go to state 20
+
+
+state 20
+
+    (5) args -> STATIC VOID MAIN LPAREN . STRING_TYPE LEFT_BRACKET RIGHT_BRACKET ARGS RPAREN LBRACE statements RBRACE
+
+    STRING_TYPE     shift and go to state 21
+
+
+state 21
+
+    (5) args -> STATIC VOID MAIN LPAREN STRING_TYPE . LEFT_BRACKET RIGHT_BRACKET ARGS RPAREN LBRACE statements RBRACE
+
+    LEFT_BRACKET    shift and go to state 22
+
+
+state 22
+
+    (5) args -> STATIC VOID MAIN LPAREN STRING_TYPE LEFT_BRACKET . RIGHT_BRACKET ARGS RPAREN LBRACE statements RBRACE
+
+    RIGHT_BRACKET   shift and go to state 23
+
+
+state 23
+
+    (5) args -> STATIC VOID MAIN LPAREN STRING_TYPE LEFT_BRACKET RIGHT_BRACKET . ARGS RPAREN LBRACE statements RBRACE
+
+    ARGS            shift and go to state 24
+
+
+state 24
+
+    (5) args -> STATIC VOID MAIN LPAREN STRING_TYPE LEFT_BRACKET RIGHT_BRACKET ARGS . RPAREN LBRACE statements RBRACE
+
+    RPAREN          shift and go to state 25
+
+
+state 25
+
+    (5) args -> STATIC VOID MAIN LPAREN STRING_TYPE LEFT_BRACKET RIGHT_BRACKET ARGS RPAREN . LBRACE statements RBRACE
+
+    LBRACE          shift and go to state 26
+
+
+state 26
+
+    (5) args -> STATIC VOID MAIN LPAREN STRING_TYPE LEFT_BRACKET RIGHT_BRACKET ARGS RPAREN LBRACE . statements RBRACE
+    (6) statements -> . statement
+    (7) statements -> . statements statement
+    (8) statement -> . expression SEMICOLON
+    (9) statement -> . println_statement
+    (10) statement -> . assignment
+    (12) expression -> . term
+    (13) expression -> . expression PLUS term
+    (14) expression -> . expression MINUS term
+    (11) println_statement -> . SYSTEM DOT CONSOLE DOT WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON
+    (21) assignment -> . ID EQUALS expression
+    (18) term -> . factor
+    (19) term -> . term TIMES factor
+    (20) term -> . term DIVIDE factor
+    (15) factor -> . NUMBER
+    (16) factor -> . ID
+    (17) factor -> . LPAREN expression RPAREN
+
+    SYSTEM          shift and go to state 34
+    ID              shift and go to state 35
+    NUMBER          shift and go to state 37
+    LPAREN          shift and go to state 27
+
+    statements                     shift and go to state 28
+    statement                      shift and go to state 29
+    expression                     shift and go to state 30
+    println_statement              shift and go to state 31
+    assignment                     shift and go to state 32
+    term                           shift and go to state 33
+    factor                         shift and go to state 36
+
+state 27
+
+    (17) factor -> LPAREN . expression RPAREN
+    (12) expression -> . term
+    (13) expression -> . expression PLUS term
+    (14) expression -> . expression MINUS term
+    (18) term -> . factor
+    (19) term -> . term TIMES factor
+    (20) term -> . term DIVIDE factor
+    (15) factor -> . NUMBER
+    (16) factor -> . ID
+    (17) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 37
+    ID              shift and go to state 39
+    LPAREN          shift and go to state 27
+
+    expression                     shift and go to state 38
+    term                           shift and go to state 33
+    factor                         shift and go to state 36
+
+state 28
+
+    (5) args -> STATIC VOID MAIN LPAREN STRING_TYPE LEFT_BRACKET RIGHT_BRACKET ARGS RPAREN LBRACE statements . RBRACE
+    (7) statements -> statements . statement
+    (8) statement -> . expression SEMICOLON
+    (9) statement -> . println_statement
+    (10) statement -> . assignment
+    (12) expression -> . term
+    (13) expression -> . expression PLUS term
+    (14) expression -> . expression MINUS term
+    (11) println_statement -> . SYSTEM DOT CONSOLE DOT WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON
+    (21) assignment -> . ID EQUALS expression
+    (18) term -> . factor
+    (19) term -> . term TIMES factor
+    (20) term -> . term DIVIDE factor
+    (15) factor -> . NUMBER
+    (16) factor -> . ID
+    (17) factor -> . LPAREN expression RPAREN
+
+    RBRACE          shift and go to state 40
+    SYSTEM          shift and go to state 34
+    ID              shift and go to state 35
+    NUMBER          shift and go to state 37
+    LPAREN          shift and go to state 27
+
+    statement                      shift and go to state 41
+    expression                     shift and go to state 30
+    println_statement              shift and go to state 31
+    assignment                     shift and go to state 32
+    term                           shift and go to state 33
+    factor                         shift and go to state 36
+
+state 29
+
+    (6) statements -> statement .
+
+    RBRACE          reduce using rule 6 (statements -> statement .)
+    SYSTEM          reduce using rule 6 (statements -> statement .)
+    ID              reduce using rule 6 (statements -> statement .)
+    NUMBER          reduce using rule 6 (statements -> statement .)
+    LPAREN          reduce using rule 6 (statements -> statement .)
+
+
+state 30
+
+    (8) statement -> expression . SEMICOLON
+    (13) expression -> expression . PLUS term
+    (14) expression -> expression . MINUS term
+
+    SEMICOLON       shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+
+
+state 31
+
+    (9) statement -> println_statement .
+
+    RBRACE          reduce using rule 9 (statement -> println_statement .)
+    SYSTEM          reduce using rule 9 (statement -> println_statement .)
+    ID              reduce using rule 9 (statement -> println_statement .)
+    NUMBER          reduce using rule 9 (statement -> println_statement .)
+    LPAREN          reduce using rule 9 (statement -> println_statement .)
+
+
+state 32
+
+    (10) statement -> assignment .
+
+    RBRACE          reduce using rule 10 (statement -> assignment .)
+    SYSTEM          reduce using rule 10 (statement -> assignment .)
+    ID              reduce using rule 10 (statement -> assignment .)
+    NUMBER          reduce using rule 10 (statement -> assignment .)
+    LPAREN          reduce using rule 10 (statement -> assignment .)
+
+
+state 33
+
+    (12) expression -> term .
+    (19) term -> term . TIMES factor
+    (20) term -> term . DIVIDE factor
+
+    SEMICOLON       reduce using rule 12 (expression -> term .)
+    PLUS            reduce using rule 12 (expression -> term .)
+    MINUS           reduce using rule 12 (expression -> term .)
+    RPAREN          reduce using rule 12 (expression -> term .)
+    RBRACE          reduce using rule 12 (expression -> term .)
+    SYSTEM          reduce using rule 12 (expression -> term .)
+    ID              reduce using rule 12 (expression -> term .)
+    NUMBER          reduce using rule 12 (expression -> term .)
+    LPAREN          reduce using rule 12 (expression -> term .)
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+
+
+state 34
+
+    (11) println_statement -> SYSTEM . DOT CONSOLE DOT WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON
+
+    DOT             shift and go to state 47
+
+
+state 35
+
+    (21) assignment -> ID . EQUALS expression
+    (16) factor -> ID .
+
+    EQUALS          shift and go to state 48
+    TIMES           reduce using rule 16 (factor -> ID .)
+    DIVIDE          reduce using rule 16 (factor -> ID .)
+    SEMICOLON       reduce using rule 16 (factor -> ID .)
+    PLUS            reduce using rule 16 (factor -> ID .)
+    MINUS           reduce using rule 16 (factor -> ID .)
+
+
+state 36
+
+    (18) term -> factor .
+
+    TIMES           reduce using rule 18 (term -> factor .)
+    DIVIDE          reduce using rule 18 (term -> factor .)
+    SEMICOLON       reduce using rule 18 (term -> factor .)
+    PLUS            reduce using rule 18 (term -> factor .)
+    MINUS           reduce using rule 18 (term -> factor .)
+    RPAREN          reduce using rule 18 (term -> factor .)
+    RBRACE          reduce using rule 18 (term -> factor .)
+    SYSTEM          reduce using rule 18 (term -> factor .)
+    ID              reduce using rule 18 (term -> factor .)
+    NUMBER          reduce using rule 18 (term -> factor .)
+    LPAREN          reduce using rule 18 (term -> factor .)
+
+
+state 37
+
+    (15) factor -> NUMBER .
+
+    TIMES           reduce using rule 15 (factor -> NUMBER .)
+    DIVIDE          reduce using rule 15 (factor -> NUMBER .)
+    SEMICOLON       reduce using rule 15 (factor -> NUMBER .)
+    PLUS            reduce using rule 15 (factor -> NUMBER .)
+    MINUS           reduce using rule 15 (factor -> NUMBER .)
+    RPAREN          reduce using rule 15 (factor -> NUMBER .)
+    RBRACE          reduce using rule 15 (factor -> NUMBER .)
+    SYSTEM          reduce using rule 15 (factor -> NUMBER .)
+    ID              reduce using rule 15 (factor -> NUMBER .)
+    NUMBER          reduce using rule 15 (factor -> NUMBER .)
+    LPAREN          reduce using rule 15 (factor -> NUMBER .)
+
+
+state 38
+
+    (17) factor -> LPAREN expression . RPAREN
+    (13) expression -> expression . PLUS term
+    (14) expression -> expression . MINUS term
+
+    RPAREN          shift and go to state 49
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+
+
+state 39
+
+    (16) factor -> ID .
+
+    TIMES           reduce using rule 16 (factor -> ID .)
+    DIVIDE          reduce using rule 16 (factor -> ID .)
+    RPAREN          reduce using rule 16 (factor -> ID .)
+    PLUS            reduce using rule 16 (factor -> ID .)
+    MINUS           reduce using rule 16 (factor -> ID .)
+    SEMICOLON       reduce using rule 16 (factor -> ID .)
+    RBRACE          reduce using rule 16 (factor -> ID .)
+    SYSTEM          reduce using rule 16 (factor -> ID .)
+    ID              reduce using rule 16 (factor -> ID .)
+    NUMBER          reduce using rule 16 (factor -> ID .)
+    LPAREN          reduce using rule 16 (factor -> ID .)
+
+
+state 40
+
+    (5) args -> STATIC VOID MAIN LPAREN STRING_TYPE LEFT_BRACKET RIGHT_BRACKET ARGS RPAREN LBRACE statements RBRACE .
+
+    RBRACE          reduce using rule 5 (args -> STATIC VOID MAIN LPAREN STRING_TYPE LEFT_BRACKET RIGHT_BRACKET ARGS RPAREN LBRACE statements RBRACE .)
+
+
+state 41
+
+    (7) statements -> statements statement .
+
+    RBRACE          reduce using rule 7 (statements -> statements statement .)
+    SYSTEM          reduce using rule 7 (statements -> statements statement .)
+    ID              reduce using rule 7 (statements -> statements statement .)
+    NUMBER          reduce using rule 7 (statements -> statements statement .)
+    LPAREN          reduce using rule 7 (statements -> statements statement .)
+
+
+state 42
+
+    (8) statement -> expression SEMICOLON .
+
+    RBRACE          reduce using rule 8 (statement -> expression SEMICOLON .)
+    SYSTEM          reduce using rule 8 (statement -> expression SEMICOLON .)
+    ID              reduce using rule 8 (statement -> expression SEMICOLON .)
+    NUMBER          reduce using rule 8 (statement -> expression SEMICOLON .)
+    LPAREN          reduce using rule 8 (statement -> expression SEMICOLON .)
+
+
+state 43
+
+    (13) expression -> expression PLUS . term
+    (18) term -> . factor
+    (19) term -> . term TIMES factor
+    (20) term -> . term DIVIDE factor
+    (15) factor -> . NUMBER
+    (16) factor -> . ID
+    (17) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 37
+    ID              shift and go to state 39
+    LPAREN          shift and go to state 27
+
+    term                           shift and go to state 50
+    factor                         shift and go to state 36
+
+state 44
+
+    (14) expression -> expression MINUS . term
+    (18) term -> . factor
+    (19) term -> . term TIMES factor
+    (20) term -> . term DIVIDE factor
+    (15) factor -> . NUMBER
+    (16) factor -> . ID
+    (17) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 37
+    ID              shift and go to state 39
+    LPAREN          shift and go to state 27
+
+    term                           shift and go to state 51
+    factor                         shift and go to state 36
+
+state 45
+
+    (19) term -> term TIMES . factor
+    (15) factor -> . NUMBER
+    (16) factor -> . ID
+    (17) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 37
+    ID              shift and go to state 39
+    LPAREN          shift and go to state 27
+
+    factor                         shift and go to state 52
+
+state 46
+
+    (20) term -> term DIVIDE . factor
+    (15) factor -> . NUMBER
+    (16) factor -> . ID
+    (17) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 37
+    ID              shift and go to state 39
+    LPAREN          shift and go to state 27
+
+    factor                         shift and go to state 53
+
+state 47
+
+    (11) println_statement -> SYSTEM DOT . CONSOLE DOT WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON
+
+    CONSOLE         shift and go to state 54
+
+
+state 48
+
+    (21) assignment -> ID EQUALS . expression
+    (12) expression -> . term
+    (13) expression -> . expression PLUS term
+    (14) expression -> . expression MINUS term
+    (18) term -> . factor
+    (19) term -> . term TIMES factor
+    (20) term -> . term DIVIDE factor
+    (15) factor -> . NUMBER
+    (16) factor -> . ID
+    (17) factor -> . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 37
+    ID              shift and go to state 39
+    LPAREN          shift and go to state 27
+
+    expression                     shift and go to state 55
+    term                           shift and go to state 33
+    factor                         shift and go to state 36
+
+state 49
+
+    (17) factor -> LPAREN expression RPAREN .
+
+    TIMES           reduce using rule 17 (factor -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 17 (factor -> LPAREN expression RPAREN .)
+    SEMICOLON       reduce using rule 17 (factor -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 17 (factor -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 17 (factor -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 17 (factor -> LPAREN expression RPAREN .)
+    RBRACE          reduce using rule 17 (factor -> LPAREN expression RPAREN .)
+    SYSTEM          reduce using rule 17 (factor -> LPAREN expression RPAREN .)
+    ID              reduce using rule 17 (factor -> LPAREN expression RPAREN .)
+    NUMBER          reduce using rule 17 (factor -> LPAREN expression RPAREN .)
+    LPAREN          reduce using rule 17 (factor -> LPAREN expression RPAREN .)
+
+
+state 50
+
+    (13) expression -> expression PLUS term .
+    (19) term -> term . TIMES factor
+    (20) term -> term . DIVIDE factor
+
+    SEMICOLON       reduce using rule 13 (expression -> expression PLUS term .)
+    PLUS            reduce using rule 13 (expression -> expression PLUS term .)
+    MINUS           reduce using rule 13 (expression -> expression PLUS term .)
+    RPAREN          reduce using rule 13 (expression -> expression PLUS term .)
+    RBRACE          reduce using rule 13 (expression -> expression PLUS term .)
+    SYSTEM          reduce using rule 13 (expression -> expression PLUS term .)
+    ID              reduce using rule 13 (expression -> expression PLUS term .)
+    NUMBER          reduce using rule 13 (expression -> expression PLUS term .)
+    LPAREN          reduce using rule 13 (expression -> expression PLUS term .)
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+
+
+state 51
+
+    (14) expression -> expression MINUS term .
+    (19) term -> term . TIMES factor
+    (20) term -> term . DIVIDE factor
+
+    SEMICOLON       reduce using rule 14 (expression -> expression MINUS term .)
+    PLUS            reduce using rule 14 (expression -> expression MINUS term .)
+    MINUS           reduce using rule 14 (expression -> expression MINUS term .)
+    RPAREN          reduce using rule 14 (expression -> expression MINUS term .)
+    RBRACE          reduce using rule 14 (expression -> expression MINUS term .)
+    SYSTEM          reduce using rule 14 (expression -> expression MINUS term .)
+    ID              reduce using rule 14 (expression -> expression MINUS term .)
+    NUMBER          reduce using rule 14 (expression -> expression MINUS term .)
+    LPAREN          reduce using rule 14 (expression -> expression MINUS term .)
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+
+
+state 52
+
+    (19) term -> term TIMES factor .
+
+    TIMES           reduce using rule 19 (term -> term TIMES factor .)
+    DIVIDE          reduce using rule 19 (term -> term TIMES factor .)
+    SEMICOLON       reduce using rule 19 (term -> term TIMES factor .)
+    PLUS            reduce using rule 19 (term -> term TIMES factor .)
+    MINUS           reduce using rule 19 (term -> term TIMES factor .)
+    RPAREN          reduce using rule 19 (term -> term TIMES factor .)
+    RBRACE          reduce using rule 19 (term -> term TIMES factor .)
+    SYSTEM          reduce using rule 19 (term -> term TIMES factor .)
+    ID              reduce using rule 19 (term -> term TIMES factor .)
+    NUMBER          reduce using rule 19 (term -> term TIMES factor .)
+    LPAREN          reduce using rule 19 (term -> term TIMES factor .)
+
+
+state 53
+
+    (20) term -> term DIVIDE factor .
+
+    TIMES           reduce using rule 20 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 20 (term -> term DIVIDE factor .)
+    SEMICOLON       reduce using rule 20 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 20 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 20 (term -> term DIVIDE factor .)
+    RPAREN          reduce using rule 20 (term -> term DIVIDE factor .)
+    RBRACE          reduce using rule 20 (term -> term DIVIDE factor .)
+    SYSTEM          reduce using rule 20 (term -> term DIVIDE factor .)
+    ID              reduce using rule 20 (term -> term DIVIDE factor .)
+    NUMBER          reduce using rule 20 (term -> term DIVIDE factor .)
+    LPAREN          reduce using rule 20 (term -> term DIVIDE factor .)
+
+
+state 54
+
+    (11) println_statement -> SYSTEM DOT CONSOLE . DOT WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON
+
+    DOT             shift and go to state 56
+
+
+state 55
+
+    (21) assignment -> ID EQUALS expression .
+    (13) expression -> expression . PLUS term
+    (14) expression -> expression . MINUS term
+
+    RBRACE          reduce using rule 21 (assignment -> ID EQUALS expression .)
+    SYSTEM          reduce using rule 21 (assignment -> ID EQUALS expression .)
+    ID              reduce using rule 21 (assignment -> ID EQUALS expression .)
+    NUMBER          reduce using rule 21 (assignment -> ID EQUALS expression .)
+    LPAREN          reduce using rule 21 (assignment -> ID EQUALS expression .)
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+
+
+state 56
+
+    (11) println_statement -> SYSTEM DOT CONSOLE DOT . WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON
+
+    WRITELINE       shift and go to state 57
+
+
+state 57
+
+    (11) println_statement -> SYSTEM DOT CONSOLE DOT WRITELINE . LPAREN STRING_LITERAL RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 58
+
+
+state 58
+
+    (11) println_statement -> SYSTEM DOT CONSOLE DOT WRITELINE LPAREN . STRING_LITERAL RPAREN SEMICOLON
+
+    STRING_LITERAL  shift and go to state 59
+
+
+state 59
+
+    (11) println_statement -> SYSTEM DOT CONSOLE DOT WRITELINE LPAREN STRING_LITERAL . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 60
+
+
+state 60
+
+    (11) println_statement -> SYSTEM DOT CONSOLE DOT WRITELINE LPAREN STRING_LITERAL RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 61
+
+
+state 61
+
+    (11) println_statement -> SYSTEM DOT CONSOLE DOT WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON .
+
+    RBRACE          reduce using rule 11 (println_statement -> SYSTEM DOT CONSOLE DOT WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON .)
+    SYSTEM          reduce using rule 11 (println_statement -> SYSTEM DOT CONSOLE DOT WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON .)
+    ID              reduce using rule 11 (println_statement -> SYSTEM DOT CONSOLE DOT WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON .)
+    NUMBER          reduce using rule 11 (println_statement -> SYSTEM DOT CONSOLE DOT WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON .)
+    LPAREN          reduce using rule 11 (println_statement -> SYSTEM DOT CONSOLE DOT WRITELINE LPAREN STRING_LITERAL RPAREN SEMICOLON .)
+
